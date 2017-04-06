@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>audio</title>
+    <!--<link rel="stylesheet" href="src/style/reset.css">
+    <link rel="stylesheet" href="src/style/style20.css">-->
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_hji39nt43o1g7gb9.css">
+</head>
+
+<body>
+    <div class="wrap clear" id="wrap">
+        <!--歌曲列表-->
+        <div id="wrapList" class="wrap-list">
+            <div class="song-list" id="songList">
+                <ul id="songListUl">
+                    <!--<li>月亮代表我的心</li>
+                    <li>三天两页</li>
+                    <li>你就不要想起我</li>
+                    <li>sing</li>
+                    <li>my way</li>-->
+                </ul>
+            </div>
+            <!--关闭列表按钮-->
+            <p class="close-song-list" id="closeSongList">关闭列表</p>
+        </div>
+        <div class="wrap-play" id="wrapPlay">
+            <div class="song-operating clear" id="songOperating">
+                <div class="song-info" id="song-info">
+                    <!--歌曲名-->
+                    <p id="songName" class="song-name">未知</p>
+                    <!--歌曲作者-->
+                    <p id="songAuthor" class="song-author">未知</p>
+                </div>
+                <!--歌曲操作-->
+                <div class="play-opera clear" id="playOpera">
+                    <div class="song-time-volume clear">
+                        <!--歌曲剩余时间-->
+                        <div id="songTime" class="song-time">--:--</div>
+                        <!--歌曲音量-->
+                        <div class="song-volume in-size iconfont icon-yinliang" id="songVolume">
+                            <div class="volueml" id="voluemeL">
+                                <div class="voluemlen" id="voluemeLength"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="song-ly-dw-sh clear">
+                        <!--显示歌曲歌词-->
+                        <div class="song-lyrics in-size iconfont icon-yinleliebiao" id="songLyrics"></div>
+                        <!--下载歌曲-->
+                        <div class="song-download in-size iconfont icon-xiazai" id="songDownload"></div>
+                        <!--分享歌曲-->
+                        <div class="song-share in-size iconfont icon-share" id="songShare"></div>
+                    </div>
+                </div>
+                <!--歌曲进度条-->
+                <div class="play-progress" id="playProgress">
+                    <div class="progress-line" id="progressLine"></div>
+                </div>
+                <div class="song-opera clear" id="songOpera">
+                    <div class="song-lo-rb clear">
+                        <!--歌曲加爱心-->
+                        <div class="song-love in-Bsize iconfont icon-aixin1" id="songLove" alt="喜欢"></div>
+                        <!--删除歌曲-->
+                        <div class="song-dislove in-Bsize iconfont icon-lajitong1-copy" id="songDisLove"></div>
+                    </div>
+                    <div class="song-li-cy-pr-pa-ne clear">
+                        <!--展示歌曲列表-->
+                        <div class="song-list-show in-Bsize iconfont icon-icon-liebiao" id="songListShow"></div>
+                        <!--更改歌曲循环方式-->
+                        <div class="song-cycle in-Bsize iconfont icon-xunhuan" id="songCycle"></div>
+                        <!--上一首-->
+                        <div class="song-previous in-Bsize iconfont icon-shangyishou" id="songPrevious"></div>
+                        <!--暂停播放-->
+                        <!--icon-bofang-->
+                        <div class="song-pause in-Bsize iconfont icon-bofang" id="songPause"></div>
+                        <!--下一首-->
+                        <div class="song-next in-Bsize iconfont icon-xiayishou" id="songNext"></div>
+                    </div>
+                </div>
+            </div>
+            <!--歌曲封面-->
+            <div class="song-cover">
+                <img id="songCover" src="" alt="genji">
+            </div>
+        </div>
+    </div>
+    <!--<audio src="files/music/崇拜.mp3" controls="controls" loop="loop" autoplay="autoplay" class="audio-control">-->
+    <audio src="" controls="controls" class="audio-control" id="audioControl"></audio>
+    <!--<script src="src/static/song.json"></script>-->
+    <!--<script src="src/index.js"></script>-->
+    <script src="dist/bundle.js"></script>
+</body>
+
+</html>
