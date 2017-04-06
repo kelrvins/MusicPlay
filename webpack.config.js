@@ -15,12 +15,6 @@ const config = {
                     "style-loader",
                     "css-loader"
                 ]
-            },
-            {
-                test: /\.json$/,
-                use: [
-                    "json-loader"
-                ]
             }, 
             {
                 test: /\.(png|jpg|gif)$/,
