@@ -1,2 +1,3 @@
 # webpack-demo
-music play :webpack-demo
+npm install
+webpack 
