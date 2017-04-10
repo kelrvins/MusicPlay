@@ -1,5 +1,4 @@
 //引入需要的模块
-
 const webpack = require('webpack');
 const path = require('path');
 const config = {
@@ -13,9 +12,20 @@ const config = {
                 test: /\.css$/,
                 use: [
                     "style-loader",
-                    "css-loader"
+                    "css-loader",
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: function () {
+                                return [
+                                    require('precss'),
+                                    require('autoprefixer')
+                                ];
+                            }
+                        }
+                    }
                 ]
-            }, 
+            },
             {
                 test: /\.(png|jpg|gif)$/,
                 loader: 'file-loader',

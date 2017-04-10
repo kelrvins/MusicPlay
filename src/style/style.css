@@ -1,7 +1,7 @@
 
 body {
     color: #555;
-    background: hsla(0, 0%, 98%, .933333)
+    background: hsla(0, 0%, 98%, .933333);
 }
 
 .clear:after {
@@ -93,13 +93,10 @@ body {
     cursor: pointer
 }
 
-.wrap-play {
-    /*padding-left: 20px*/
-}
 
 .song-operating {
     float: left;
-    padding-top: 6rem;
+    padding-top: 3rem;
     width: 450px;
     padding-right: 1rem;
 }
