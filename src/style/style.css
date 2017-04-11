@@ -1,4 +1,3 @@
-
 body {
     color: #555;
     background: hsla(0, 0%, 98%, .933333);
@@ -29,13 +28,12 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     width: 960px;
     height: 450px;
 }
 
-.wrap-list,
-.wrap-play {
+.wrap-list, .wrap-play {
     float: left
 }
 
@@ -79,10 +77,11 @@ body {
     cursor: default;
 }
 
-.ilikesong{
+.ilikesong {
     color: #f00 !important;
 }
-.dislikesong{
+
+.dislikesong {
     text-decoration: line-through;
 }
 
@@ -92,7 +91,6 @@ body {
     font-size: .9rem;
     cursor: pointer
 }
-
 
 .song-operating {
     float: left;
@@ -116,8 +114,7 @@ body {
     padding-top: 1rem
 }
 
-.song-ly-dw-sh,
-.song-time-volume {
+.song-ly-dw-sh, .song-time-volume {
     float: left;
     position: relative;
 }
@@ -177,8 +174,7 @@ body {
     margin-left: 0
 }
 
-.song-download,
-.song-share {
+.song-download, .song-share {
     margin-left: 2rem
 }
 
@@ -207,8 +203,7 @@ body {
     cursor: pointer
 }
 
-.song-lo-rb,
-.song-lo-rb div {
+.song-lo-rb, .song-lo-rb div {
     float: left
 }
 
@@ -220,8 +215,7 @@ body {
     float: left
 }
 
-.song-list-show,
-.song-love {
+.song-list-show, .song-love {
     margin-left: 0;
 }
 
@@ -234,18 +228,13 @@ body {
     transition: color 0.2s;
 }
 
-.song-love,
-.song-dislove,
-.song-previous,
-.song-next,
-.song-pause {
+.song-love, .song-dislove, .song-previous, .song-next, .song-pause {
     color: #000;
     font-size: 2rem !important;
     width: 32px;
 }
 
-.song-list-show,
-.song-cycle {
+.song-list-show, .song-cycle {
     padding-top: 8px;
 }
 
@@ -261,6 +250,104 @@ body {
     border: 1px solid #ddd;
 }
 
-.audio-control{
+.audio-control {
     display: none;
+}
+
+#addSongLists{
+    position: absolute;
+    left: 65px;
+    top: 370px;
+    opacity: 0;
+}
+
+.caddSongList:hover{
+    cursor: pointer
+}
+.caddSongList:hover  #addSongLists{
+    opacity: 1;
+}
+
+.maskwrap {
+    /*background: rgba(0, 0, 0, 0.8);*/
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.addMusicWrap {
+    position: fixed;
+    display: none;
+    left: 50%;
+    top: 50%;
+    width: 60%;
+    transform: translate(-50%, -50%);
+    min-height: 30rem;
+    min-width: 800px;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
+.addMusicWrap h1 {
+    color: #fff;
+    line-height: 7rem;
+    font-weight: lighter;
+}
+
+.addMusicWrap p {
+    padding: 1rem 0;
+}
+
+.addMusicWrap p span {
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.addMusicWrap p input[type=text] {
+    width: 25rem;
+    border: 1px solid #777;
+    border-radius: 3px;
+    height: 2rem;
+    padding-left: 10px;
+}
+
+.addMusicWrap p input[type=file] {
+    width: calc(25rem + 8px);
+    display: none
+}
+
+.pathText {
+    display: inline-block;
+    vertical-align: top;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.ulabel {
+    width: 25rem;
+    line-height: 2.1rem;
+    display: inline-block;
+    height: 2.1rem;
+    border-radius: 3px;
+    background: #fff;
+    text-align: left;
+    padding-left: 10px
+}
+
+.songSubmit {
+    width: 29.3rem;
+    height: 2.5rem;
+    border-radius: 3px;
+    color: #fff;
+    background: rgb(0, 154, 97);
+    border: 1px solid rgb(0, 154, 97);
+}
+
+.songSubmit:focus {
+    outline: none;
+}
+.upnotice{
+    color: #fff;
 }
