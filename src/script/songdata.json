@@ -1,0 +1,29 @@
+[{
+    "songid": "1",
+    "songname": "感性",
+    "songauthor": "Fine乐团",
+    "like": "",
+    "songpath": "src/static/Fine乐团 - 感性.mp3",
+    "songpic": "src/static/感性.jpg"
+}, {
+    "songid": "2",
+    "songname": "烟花易冷",
+    "songauthor": "周杰伦",
+    "like": "y",
+    "songpath": "src/static/周杰伦 - 烟花易冷.mp",
+    "songpic": ""
+}, {
+    "songid": "3",
+    "songname": "异乡人",
+    "songauthor": "李健",
+    "like": "",
+    "songpath": "src/static/李健 - 异乡人.mp3",
+    "songpic": "src/static/异乡人.jpg"
+}, {
+    "songid": "4",
+    "songname": "当你",
+    "songauthor": "林俊杰",
+    "like": "",
+    "songpath": "src/static/林俊杰 - 当你.mp3",
+    "songpic": "src/static/当你.jpg"
+}]

@@ -1,5 +1,6 @@
 //引入需要的模块
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const config = {
     entry: './src/entry.js',
@@ -34,6 +35,27 @@ const config = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: "Music",
+            filename: "../index.html",
+            template: "./src/template.html",
+            inject: "body",
+            favicon: "",
+            minify: {
+                caseSensitive: false,
+                collapseBooleanAttributes: true,
+                collapseWhitespace: true
+            },
+            hash: true,
+            cache: true,
+            showErrors: true,
+            chunks: "",
+            chunksSortMode: "auto",
+            excludeChunks: "",
+            xhtml: false
+        })
+    ]
 }
 module.exports = config;
