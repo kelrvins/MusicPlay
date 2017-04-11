@@ -1,62 +1,21 @@
-var songdata = [{
-    songid: "1",
-    songname: "感性",
-    songauthor: "Fine乐团",
-    like: "n",
-    songpath: "src/static/Fine乐团 - 感性.mp3",
-    songpic: "src/static/感性.jpg"
-}, {
-    songid: "2",
-    songname: "烟花易冷",
-    songauthor: "周杰伦",
-    like: "y",
-    songpath: "src/static/周杰伦 - 烟花易冷.mp3",
-    songpic: ""
-}, {
-    songid: "3",
-    songname: "异乡人",
-    songauthor: "李健",
-    like: "",
-    songpath: "src/static/李健 - 异乡人.mp3",
-    songpic: "src/static/异乡人.jpg"
-}, {
-    songid: "4",
-    songname: "当你",
-    songauthor: "林俊杰",
-    like: "",
-    songpath: "src/static/林俊杰 - 当你.mp3",
-    songpic: "src/static/当你.jpg"
-}]
+import songdata from './songdata.json';
+import {
+    w
+} from './wtools';
 
 var currentPlay = 1,
     songDataLength = 0,
     loopstyle = 0,
     progressFlag = null;
 
-$ = function (ele) {
-    return document.getElementById(ele);
-}
-
-//设置兼容事件
-let addEvent = function (ele, event, func) {
-    if (ele.addEventListener) {
-        ele.addEventListener(event, func, false);
-    } else if (ele.attachEvent) {
-        ele.attachEvent('on' + event, func);
-    } else {
-        ele['on' + event] = func;
-    }
-}
-
-
 class audioPlay {
     constructor() {
         this.listFill()
         this.ainit(1)
-        $('voluemeLength').style.width = ($('audioControl').volume) * 100 + "%"
+        w.$('#voluemeLength').style.width = (w.$('#audioControl').volume) * 100 + "%"
     }
     listFill() {
-        removaAllNodes($('songListUl'))
+        removaAllNodes(w.$('#songListUl'))
         for (var op in songdata) {
             let l = document.createElement('li');
             l.innerHTML = songdata[op].songname + " - " + songdata[op].songauthor;
@@ -67,7 +26,7 @@ class audioPlay {
             if (songdata[op].like == "n") {
                 l.className = "dislikesong"
             }
-            $('songListUl').appendChild(l);
+            w.$('#songListUl').appendChild(l);
             songDataLength = op
             setNameColor(currentPlay)
         }
@@ -76,63 +35,63 @@ class audioPlay {
         for (var op in songdata) {
             if (songdata[op].songid == el) {
                 currentPlay = songdata[op].songid
-                $('audioControl').src = songdata[op].songpath
-                $('progressLine').style.width = 0
+                w.$('#audioControl').src = songdata[op].songpath
+                w.$('#progressLine').style.width = 0
                 if (songdata[op].songpic.trim() != "") {
-                    $('songCover').src = songdata[op].songpic
+                    w.$('#songCover').src = songdata[op].songpic
                 } else {
-                    $('songCover').src = "src/static/默认封面.jpg"
+                    w.$('#songCover').src = "src/static/默认封面.jpg"
                 }
-                $('songName').innerHTML = songdata[op].songname
+                w.$('#songName').innerHTML = songdata[op].songname
                 document.title = songdata[op].songname
-                $('songAuthor').innerHTML = songdata[op].songauthor
+                w.$('#songAuthor').innerHTML = songdata[op].songauthor
                 if (songdata[op].like != "") {
                     if (songdata[op].like == "y") {
-                        $('songLove').style.color = "#F00"
-                        $('songDisLove').style.color = "#000"
+                        w.$('#songLove').style.color = "#F00"
+                        w.$('#songDisLove').style.color = "#000"
                     }
                     if (songdata[op].like == "n") {
-                        $('songLove').style.color = "#000"
-                        $('songDisLove').style.color = "#F00"
+                        w.$('#songLove').style.color = "#000"
+                        w.$('#songDisLove').style.color = "#F00"
                     }
                 } else {
-                    $('songDisLove').style.color = "#000"
-                    $('songLove').style.color = "#000"
+                    w.$('#songDisLove').style.color = "#000"
+                    w.$('#songLove').style.color = "#000"
                 }
                 setNameColor(currentPlay)
             }
         }
+        canPlayer()
     }
     apause() {
-        if ($('audioControl').paused) {
+        if (w.$('#audioControl').paused) {
             // console.log("play");
-            $('audioControl').play()
-            $('songPause').className = $('songPause').className.replace('bofang', 'zanting')
-            progressFlag = setInterval(getProgress, 60)
+            this.aplay()
         } else {
             // console.log("pause");
-            $('audioControl').pause()
-            $('songPause').className = $('songPause').className.replace('zanting', 'bofang')
+            w.$('#audioControl').pause()
+            w.$('#songPause').className = w.$('#songPause').className.replace('zanting', 'bofang')
             clearInterval(progressFlag)
         }
+    }
+    aplay() {
+        w.$('#audioControl').play()
+        w.$('#songPause').className = w.$('#songPause').className.replace('bofang', 'zanting')
+        progressFlag = setInterval(getProgress, 100)
     }
     aprevious() {
         // console.log("previous")
         this.setend()
         getPriNo()
         this.ainit(currentPlay, "pre")
-        $('audioControl').play()
-        $('songPause').className = $('songPause').className.replace('bofang', 'zanting')
-        progressFlag = setInterval(getProgress, 100)
+        this.aplay()
     }
     anext() {
         // console.log("next")
         this.setend()
         getNextNo()
         this.ainit(currentPlay, "next")
-        $('audioControl').play()
-        $('songPause').className = $('songPause').className.replace('bofang', 'zanting')
-        progressFlag = setInterval(getProgress, 100)
+        this.aplay()
     }
     alike() {
         // console.log("alike:" + currentPlay)
@@ -152,62 +111,58 @@ class audioPlay {
         switch (sw) {
             case 0:
                 loopstyle = 1
-                $('songCycle').style.color = "#f00"
+                w.$('#songCycle').style.color = "#f00"
                 break
             case 1:
                 loopstyle = 2
-                $('songCycle').style.color = "rgb(10, 162, 0)"
+                w.$('#songCycle').style.color = "rgb(10, 162, 0)"
                 break
             case 2:
                 loopstyle = 0
-                $('songCycle').style.color = "#000"
+                w.$('#songCycle').style.color = "#000"
                 break
             default:
                 loopstyle = 0
-                $('songCycle').style.color = "#000"
+                w.$('#songCycle').style.color = "#000"
                 break
         }
     }
     setVolume() {
-        // console.log("setVolume")
         var mouseX = event.clientX,
-            voluemeLWidth = $('voluemeL').offsetWidth,
-            voluemeLLeft = getOffsetLeft($('voluemeL'))
-        // console.log(mouseX, voluemeLWidth, voluemeLLeft)
-        $('audioControl').volume = (mouseX - voluemeLLeft) / 50
-        $('voluemeLength').style.width = (mouseX - voluemeLLeft) / 50 * 100 + "%"
+            voluemeLWidth = w.$('#voluemeL').offsetWidth,
+            voluemeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#voluemeL').offsetParent.offsetLeft + w.$('#voluemeL').offsetParent.offsetWidth + 15
+        console.log(mouseX, voluemeLWidth, voluemeLLeft)
+        w.$('#audioControl').volume = (mouseX - voluemeLLeft) / 50
+        w.$('#voluemeLength').style.width = (mouseX - voluemeLLeft) / 50 * 100 + "%"
     }
     setRandom() {
-        // console.log("setRandom")
         getrandom()
-        // console.log("random:" + parseInt(currentPlay))
         this.ainit(parseInt(currentPlay), "next")
         this.apause()
     }
     setend() {
-        // console.log("setend")
-        $('songPause').className = $('songPause').className.replace('zanting', 'bofang')
-        $('audioControl').currentTime = 0
-        $('progressLine').style.width = 0 + "%"
+        w.$('#songPause').className = w.$('#songPause').className.replace('zanting', 'bofang')
+        w.$('#audioControl').currentTime = 0
+        w.$('#progressLine').style.width = 0 + "%"
     }
     setPlayProgress() {
-        // console.log("setProgress")
+        // console.log("setPlayProgress")
         var mouseX = event.clientX,
-            playWidth = $('playProgress').offsetWidth,
-            playmeLLeft = getOffsetLeft($('playProgress'))
-        // console.log(mouseX, playWidth, playmeLLeft)
-        $('audioControl').currentTime = (mouseX - playmeLLeft) / 434 * $('audioControl').duration
-        $('progressLine').style.width = (mouseX - playmeLLeft) / 434 * 100 + "%"
+            playWidth = w.$('#playProgress').offsetWidth,
+            playmeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#playProgress').offsetLeft
+        console.log(mouseX, playWidth, playmeLLeft)
+        w.$('#audioControl').currentTime = (mouseX - playmeLLeft) / 450 * w.$('#audioControl').duration
+        w.$('#progressLine').style.width = (mouseX - playmeLLeft) / 450 * 100 + "%"
     }
     gettime() {
-        $('songTime').innerHTML = "-" + formatSeconds($('audioControl').duration - $('audioControl')
+        w.$('#songTime').innerHTML = "-" + formatSeconds(w.$('#audioControl').duration - w.$('#audioControl')
             .currentTime)
     }
     closeSongL() {
-        if ($('wrapList').style.visibility == "hidden") {
-            $('wrapList').style.visibility = "visible"
+        if (w.$('#wrapList').style.visibility == "hidden") {
+            w.$('#wrapList').style.visibility = "visible"
         } else {
-            $('wrapList').style.visibility = "hidden"
+            w.$('#wrapList').style.visibility = "hidden"
         }
     }
 }
@@ -232,12 +187,12 @@ var setLike = function (ele) {
         if (songdata[op].songid == ele)
             if (songdata[op].like == "y") {
                 songdata[op].like = ""
-                $('songLove').style.color = "#000"
-                $('songDisLove').style.color = "#000"
+                w.$('#songLove').style.color = "#000"
+                w.$('#songDisLove').style.color = "#000"
             } else {
                 songdata[op].like = "y"
-                $('songLove').style.color = "#f00"
-                $('songDisLove').style.color = "#000"
+                w.$('#songLove').style.color = "#f00"
+                w.$('#songDisLove').style.color = "#000"
             }
     }
     myplay.listFill()
@@ -249,15 +204,35 @@ var setdisLike = function (ele) {
         if (songdata[op].songid == ele)
             if (songdata[op].like == "n") {
                 songdata[op].like = ""
-                $('songLove').style.color = "#000"
-                $('songDisLove').style.color = "#000"
+                w.$('#songLove').style.color = "#000"
+                w.$('#songDisLove').style.color = "#000"
             } else {
                 songdata[op].like = "n"
-                $('songDisLove').style.color = "#f00"
-                $('songLove').style.color = "#000"
+                w.$('#songDisLove').style.color = "#f00"
+                w.$('#songLove').style.color = "#000"
             }
     }
     myplay.listFill()
+}
+
+//判断读取的是否为可用音乐文件
+var canPlayer = function () {
+    var timelength;
+    var timeC = setInterval(function () {
+        timelength = w.$('#audioControl').duration
+    }, 500);
+
+    function cleart() {
+        clearInterval(timeC);
+        (function () {
+            var at = parseInt(timelength) + "ss"
+            if (at == "NaNss") {
+                alert("文件错误")
+                howNextPlay()
+            }
+        })()
+    }
+    setTimeout(cleart, 1500)
 }
 
 //删除所有节点
@@ -318,11 +293,25 @@ var getrandom = function () {
 
 // video的播放条
 var getProgress = function () {
-    var percent = $('audioControl').currentTime / $('audioControl').duration
-    $('progressLine').style.width = (percent * 100).toFixed(1) + "%"
+    var percent = w.$('#audioControl').currentTime / w.$('#audioControl').duration
+    w.$('#progressLine').style.width = (percent * 100).toFixed(1) + "%"
     myplay.gettime()
 }
 
+//下一首播啥
+var howNextPlay = function () {
+    switch (parseInt(loopstyle)) {
+        case 0:
+            myplay.anext()
+            break
+        case 2:
+            myplay.setRandom()
+            break
+        default:
+            myplay.anext()
+            break
+    }
+}
 //格式化时间
 var formatSeconds = function (value) {
     var theTime = parseInt(value) // 秒
@@ -354,73 +343,112 @@ var formatSeconds = function (value) {
     }
 }
 
-//获取距离页面左侧的距离
-var getOffsetLeft = function (obj) {
-    var tmp = obj.offsetLeft
-    var val = obj.offsetParent
-    while (val != null) {
-        tmp += val.offsetLeft
-        val = val.offsetParent
+//添加歌曲
+var addMusics = function () {
+    var adName = w.$('#usongname').value;
+    var adAuthor = w.$('#usongauthor').value;
+    var adPath = w.$('#usonpath').value;
+    if (adName.trim() == "" || adAuthor.trim() == "" || adPath.trim() == "") {
+        w.$('#upnotice').innerHTML = "请正确填写"
+        console.log(adName + "," + adAuthor + "," + adPath)
+    } else {
+        w.$('#upnotice').innerHTML = ""
     }
-    return tmp
+}
+
+//添加歌曲
+var addMusicfloder = function () {
+    var adPaths = w.$('#usonpaths').value;
+    if (adPaths.trim() == "") {
+        w.$('#upnotices').innerHTML = "请正确填写"
+    } else {
+        w.$('#upnotices').innerHTML = ""
+    }
 }
 
 let myplay = new audioPlay()
 
 window.onload = function () {
-    addEvent($('songPrevious'), "click", function () {
+    w.addEvent(w.$('#songPrevious'), "click", function () {
         myplay.aprevious()
     })
-    addEvent($('songPause'), "click", function () {
+    w.addEvent(w.$('#songPause'), "click", function () {
         myplay.apause()
     })
-    addEvent($('songNext'), "click", function () {
+    w.addEvent(w.$('#songNext'), "click", function () {
         myplay.anext()
     })
-    addEvent($('songDownload'), "click", function () {
+    w.addEvent(w.$('#songDownload'), "click", function () {
         myplay.adownload()
     })
-    addEvent($('voluemeL'), "click", function () {
+    w.addEvent(w.$('#voluemeL'), "click", function () {
         myplay.setVolume()
     })
-    addEvent($('playProgress'), "click", function () {
+    w.addEvent(w.$('#playProgress'), "click", function () {
         myplay.setPlayProgress()
     })
-    addEvent($('closeSongList'), "click", function () {
+    w.addEvent(w.$('#closeSongList'), "click", function () {
         myplay.closeSongL()
     })
-    addEvent($('songListShow'), "click", function () {
+    w.addEvent(w.$('#songListShow'), "click", function () {
         myplay.closeSongL()
     })
-    addEvent($('audioControl'), "canplay", function () {
+    w.addEvent(w.$('#audioControl'), "canplay", function () {
         myplay.gettime()
     })
-    addEvent($('audioControl'), "ended", function () {
+    w.addEvent(w.$('#audioControl'), "ended", function () {
         myplay.setend()
-        if (parseInt(loopstyle) == 0) {
-            myplay.anext()
-        } else if (parseInt(loopstyle) == 1) {
-            myplay.apause()
-        } else if (parseInt(loopstyle) == 2) {
-            myplay.setRandom()
-        }
+        howNextPlay()
     })
-    addEvent($('songLove'), "click", function () {
+    w.addEvent(w.$('#songLove'), "click", function () {
         myplay.alike()
     })
-    addEvent($('songDisLove'), "click", function () {
+    w.addEvent(w.$('#songDisLove'), "click", function () {
         myplay.adislike()
     })
-    addEvent($('songCycle'), "click", function () {
+    w.addEvent(w.$('#songCycle'), "click", function () {
         myplay.aloop()
     })
-    addEvent($('songListUl'), "click", function () {
+    w.addEvent(w.$('#songListUl'), "click", function () {
         var lis = document.getElementsByTagName("Li")
         var target = event.target || event.srcElement
         if (!!target && target.nodeName.toUpperCase() === 'LI') {
             console.log(target.value)
             myplay.ainit(target.value)
             myplay.apause()
+        }
+    })
+    w.addEvent(w.$('#maskwrap'), "click", function () {
+        w.$('#maskwrap').style.display = "none";
+        w.$('#addMusic').style.display = "none";
+        w.$('#addMusics').style.display = "none";
+    })
+    w.addEvent(w.$('#addSongList'), "click", function () {
+        w.$('#maskwrap').style.display = "block";
+        w.$('#addMusic').style.display = "block";
+    })
+    w.addEvent(w.$('#addSongLists'), "click", function () {
+        w.$('#maskwrap').style.display = "block";
+        w.$('#addMusics').style.display = "block";
+    })
+    w.addEvent(w.$('#songSubmit'), "click", function () {
+        addMusics();
+    })
+    w.addEvent(w.$('#songSubmits'), "click", function () {
+        addMusicfloder();
+    })
+    w.addEvent(w.$('#usonpath'), "change", function () {
+        if (w.$('#usonpath').value == null) {
+            w.$('#ulabelurl').innerHTML = "多个文件"
+        } else {
+            w.$('#ulabelurl').innerHTML = w.$('#usonpath').value 
+        }
+    })
+    w.addEvent(w.$('#usonpaths'), "change", function () {
+        if (w.$('#usonpaths').value == null) {
+            w.$('#ulabelurls').innerHTML = "多个文件"
+        } else {
+            w.$('#ulabelurls').innerHTML = w.$('#usonpaths').value 
         }
     })
 }
