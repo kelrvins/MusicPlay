@@ -40,7 +40,7 @@ class audioPlay {
                 if (songdata[op].songpic.trim() != "") {
                     w.$('#songCover').src = songdata[op].songpic
                 } else {
-                    w.$('#songCover').src = "src/static/默认封面.jpg"
+                    w.$('#songCover').src = "http://7xurqc.com1.z0.glb.clouddn.com/%E9%BB%98%E8%AE%A4%E5%B0%81%E9%9D%A2.jpg"
                 }
                 w.$('#songName').innerHTML = songdata[op].songname
                 document.title = songdata[op].songname
@@ -229,6 +229,7 @@ var canPlayer = function () {
             if (at == "NaNss") {
                 alert("文件错误")
                 howNextPlay()
+                // console.log("err")
             }
         })()
     }
@@ -343,16 +344,37 @@ var formatSeconds = function (value) {
     }
 }
 
+var songpush = function (adName, adAuthor, adPath, adpic) {
+    var sd = {
+        "songid": songdata.length + 1,
+        "songname": adName,
+        "songauthor": adAuthor,
+        "like": "",
+        "songpath": adPath,
+        "songpic": adpic
+    }
+    songdata.push(JSON.parse(JSON.stringify(sd)))
+    myplay.listFill()
+}
+
 //添加歌曲
 var addMusics = function () {
     var adName = w.$('#usongname').value;
     var adAuthor = w.$('#usongauthor').value;
     var adPath = w.$('#usonpath').value;
+    var adpic = w.$('#usongpicture').value;
     if (adName.trim() == "" || adAuthor.trim() == "" || adPath.trim() == "") {
         w.$('#upnotice').innerHTML = "请正确填写"
         console.log(adName + "," + adAuthor + "," + adPath)
     } else {
         w.$('#upnotice').innerHTML = ""
+        songpush(adName, adAuthor, adPath, adpic)
+        w.$('#usongname').value = ""
+        w.$('#usongauthor').value = ""
+        w.$('#usongpicture').value = ""
+        w.$('#usonpath').value = ""
+        // w.$('#usongpci').innerHTML = ""
+        // w.$('#ulabelurl').innerHTML = ""
     }
 }
 
@@ -437,18 +459,13 @@ window.onload = function () {
     w.addEvent(w.$('#songSubmits'), "click", function () {
         addMusicfloder();
     })
+    w.addEvent(w.$('#usongpicture'), "change", function () {
+        w.$('#usongpci').innerHTML = w.$('#usongpicture').value
+    })
     w.addEvent(w.$('#usonpath'), "change", function () {
-        if (w.$('#usonpath').value == null) {
-            w.$('#ulabelurl').innerHTML = "多个文件"
-        } else {
-            w.$('#ulabelurl').innerHTML = w.$('#usonpath').value 
-        }
+        w.$('#ulabelurl').innerHTML = w.$('#usonpath').value
     })
     w.addEvent(w.$('#usonpaths'), "change", function () {
-        if (w.$('#usonpaths').value == null) {
-            w.$('#ulabelurls').innerHTML = "多个文件"
-        } else {
-            w.$('#ulabelurls').innerHTML = w.$('#usonpaths').value 
-        }
+        w.$('#ulabelurls').innerHTML = "多个文件"
     })
 }

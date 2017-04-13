@@ -254,18 +254,21 @@ body {
     display: none;
 }
 
-#addSongLists{
+#addSongLists {
     position: absolute;
     left: 65px;
-    top: 370px;
+    top: 380px;
     opacity: 0;
+    transition: all 0.5s;
 }
 
-.caddSongList:hover{
+.caddSongList:hover {
     cursor: pointer
 }
-.caddSongList:hover  #addSongLists{
+
+.caddSongList:hover #addSongLists {
     opacity: 1;
+    top: 370px;
 }
 
 .maskwrap {
@@ -345,9 +348,14 @@ body {
     border: 1px solid rgb(0, 154, 97);
 }
 
+#songSubmits {
+    margin-top: 2rem;
+}
+
 .songSubmit:focus {
     outline: none;
 }
-.upnotice{
+
+.upnotice {
     color: #fff;
 }
