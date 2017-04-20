@@ -39,7 +39,7 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             title: "Music",
-            filename: "../dist/index.html",
+            filename: "../index.html",
             template: "./src/template.html",
             inject: "body",
             favicon: "",

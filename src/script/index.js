@@ -1,9 +1,15 @@
-import songdata from './songdata.json';
 import {
     w
 } from './wtools';
 
-var currentPlay = 1,
+let songdata = [{
+    "songid": 1,
+    "songname": "程璧 - 花房姑娘",
+    "like": "",
+    "songpath": "./songdata/程璧 - 花房姑娘.mp3"
+}]
+
+let currentPlay = 1,
     songDataLength = 0,
     loopstyle = 0,
     progressFlag = null;
@@ -15,10 +21,10 @@ class audioPlay {
         w.$('#voluemeLength').style.width = (w.$('#audioControl').volume) * 100 + "%"
     }
     listFill() {
-        removaAllNodes(w.$('#songListUl'))
-        for (var op in songdata) {
+        w.removaAllChildNodes(w.$('#songListUl'))
+        for (let op in songdata) {
             let l = document.createElement('li');
-            l.innerHTML = songdata[op].songname + " - " + songdata[op].songauthor;
+            l.innerHTML = songdata[op].songname;
             l.value = songdata[op].songid;
             if (songdata[op].like == "y") {
                 l.className = "ilikesong"
@@ -32,25 +38,19 @@ class audioPlay {
         }
     }
     ainit(el, eve) {
-        for (var op in songdata) {
+        for (let op in songdata) {
             if (songdata[op].songid == el) {
                 currentPlay = songdata[op].songid
                 w.$('#audioControl').src = songdata[op].songpath
                 w.$('#progressLine').style.width = 0
-                if (songdata[op].songpic.trim() != "") {
-                    w.$('#songCover').src = songdata[op].songpic
-                } else {
-                    w.$('#songCover').src = "http://7xurqc.com1.z0.glb.clouddn.com/%E9%BB%98%E8%AE%A4%E5%B0%81%E9%9D%A2.jpg"
-                }
+                w.$('#songCover').src = "http://7xurqc.com1.z0.glb.clouddn.com/%E9%BB%98%E8%AE%A4%E5%B0%81%E9%9D%A2.jpg"
                 w.$('#songName').innerHTML = songdata[op].songname
                 document.title = songdata[op].songname
-                w.$('#songAuthor').innerHTML = songdata[op].songauthor
                 if (songdata[op].like != "") {
                     if (songdata[op].like == "y") {
                         w.$('#songLove').style.color = "#F00"
                         w.$('#songDisLove').style.color = "#000"
-                    }
-                    if (songdata[op].like == "n") {
+                    } else if (songdata[op].like == "n") {
                         w.$('#songLove').style.color = "#000"
                         w.$('#songDisLove').style.color = "#F00"
                     }
@@ -61,11 +61,9 @@ class audioPlay {
                 setNameColor(currentPlay)
             }
         }
-        canPlayer()
     }
     apause() {
         if (w.$('#audioControl').paused) {
-            // console.log("play");
             this.aplay()
         } else {
             // console.log("pause");
@@ -77,7 +75,7 @@ class audioPlay {
     aplay() {
         w.$('#audioControl').play()
         w.$('#songPause').className = w.$('#songPause').className.replace('bofang', 'zanting')
-        progressFlag = setInterval(getProgress, 100)
+        progressFlag = setInterval(getProgress, 1000)
     }
     aprevious() {
         // console.log("previous")
@@ -107,7 +105,7 @@ class audioPlay {
     aloop() {
         //0：列表循环  1：单曲 2：随机
         // console.log("aloop")
-        var sw = parseInt(loopstyle)
+        let sw = parseInt(loopstyle)
         switch (sw) {
             case 0:
                 loopstyle = 1
@@ -128,12 +126,14 @@ class audioPlay {
         }
     }
     setVolume() {
-        var mouseX = event.clientX,
+        let mouseX = event.clientX,
             voluemeLWidth = w.$('#voluemeL').offsetWidth,
             voluemeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#voluemeL').offsetParent.offsetLeft + w.$('#voluemeL').offsetParent.offsetWidth + 15
         console.log(mouseX, voluemeLWidth, voluemeLLeft)
         w.$('#audioControl').volume = (mouseX - voluemeLLeft) / 50
         w.$('#voluemeLength').style.width = (mouseX - voluemeLLeft) / 50 * 100 + "%"
+ w.$('#songVolume').style.color = "#555"
+    
     }
     setRandom() {
         getrandom()
@@ -147,7 +147,7 @@ class audioPlay {
     }
     setPlayProgress() {
         // console.log("setPlayProgress")
-        var mouseX = event.clientX,
+        let mouseX = event.clientX,
             playWidth = w.$('#playProgress').offsetWidth,
             playmeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#playProgress').offsetLeft
         console.log(mouseX, playWidth, playmeLLeft)
@@ -155,7 +155,7 @@ class audioPlay {
         w.$('#progressLine').style.width = (mouseX - playmeLLeft) / 450 * 100 + "%"
     }
     gettime() {
-        w.$('#songTime').innerHTML = "-" + formatSeconds(w.$('#audioControl').duration - w.$('#audioControl')
+        w.$('#songTime').innerHTML = "-" + w.formatSeconds(w.$('#audioControl').duration - w.$('#audioControl')
             .currentTime)
     }
     closeSongL() {
@@ -168,9 +168,9 @@ class audioPlay {
 }
 
 //return 0:nothing 1:dis 2:like
-var getLike = function (ele) {
-    var islikes = 0;
-    for (var op in songdata) {
+const getLike = function (ele) {
+    let islikes = 0;
+    for (let op in songdata) {
         if (songdata[op].songid == ele)
             if (songdata[op].like == "n") {
                 islikes = 1
@@ -181,9 +181,9 @@ var getLike = function (ele) {
     return islikes
 }
 
-var setLike = function (ele) {
-    var islikes = 0;
-    for (var op in songdata) {
+const setLike = function (ele) {
+    let islikes = 0;
+    for (let op in songdata) {
         if (songdata[op].songid == ele)
             if (songdata[op].like == "y") {
                 songdata[op].like = ""
@@ -198,9 +198,9 @@ var setLike = function (ele) {
     myplay.listFill()
 }
 
-var setdisLike = function (ele) {
-    var islikes = 0;
-    for (var op in songdata) {
+const setdisLike = function (ele) {
+    let islikes = 0;
+    for (let op in songdata) {
         if (songdata[op].songid == ele)
             if (songdata[op].like == "n") {
                 songdata[op].like = ""
@@ -215,38 +215,10 @@ var setdisLike = function (ele) {
     myplay.listFill()
 }
 
-//判断读取的是否为可用音乐文件
-var canPlayer = function () {
-    var timelength;
-    var timeC = setInterval(function () {
-        timelength = w.$('#audioControl').duration
-    }, 500);
-
-    function cleart() {
-        clearInterval(timeC);
-        (function () {
-            var at = parseInt(timelength) + "ss"
-            if (at == "NaNss") {
-                alert("文件错误")
-                howNextPlay()
-                // console.log("err")
-            }
-        })()
-    }
-    setTimeout(cleart, 1500)
-}
-
-//删除所有节点
-var removaAllNodes = function (ele) {
-    while (ele.hasChildNodes()) {
-        ele.removeChild(ele.lastChild)
-    }
-}
-
-var setNameColor = function (el) {
-    var uls = document.getElementById('songListUl')
-    var items = uls.getElementsByTagName("li")
-    for (var i = 0; i < items.length; i++) {
+const setNameColor = function (el) {
+    let uls = document.getElementById('songListUl')
+    let items = uls.getElementsByTagName("li")
+    for (let i = 0; i < items.length; i++) {
         // console.log(items[i].value)
         items[i].style.fontWeight = "normal"
         items[i].style.color = "#777"
@@ -256,8 +228,9 @@ var setNameColor = function (el) {
         }
     }
 }
+
 //向上获取序号
-var getPriNo = function () {
+const getPriNo = function () {
     if (parseInt(currentPlay) == 1) {
         currentPlay = parseInt(songDataLength) + 1
     } else {
@@ -270,7 +243,7 @@ var getPriNo = function () {
 }
 
 //向下获取序号
-var getNextNo = function () {
+const getNextNo = function () {
     if (parseInt(currentPlay) == parseInt(songDataLength) + 1) {
         currentPlay = 1
     } else {
@@ -283,8 +256,8 @@ var getNextNo = function () {
 }
 
 // 获取随机播放
-var getrandom = function () {
-    var ne = parseInt(Math.random() * (parseInt(songDataLength) + 1) + 1)
+const getrandom = function () {
+    let ne = parseInt(Math.random() * (parseInt(songDataLength) + 1) + 1)
     if (ne == parseInt(currentPlay) || getLike(ne) == 1 || ne == "NaN") {
         getrandom()
     } else {
@@ -293,14 +266,14 @@ var getrandom = function () {
 }
 
 // video的播放条
-var getProgress = function () {
-    var percent = w.$('#audioControl').currentTime / w.$('#audioControl').duration
+const getProgress = function () {
+    let percent = w.$('#audioControl').currentTime / w.$('#audioControl').duration
     w.$('#progressLine').style.width = (percent * 100).toFixed(1) + "%"
     myplay.gettime()
 }
 
 //下一首播啥
-var howNextPlay = function () {
+const howNextPlay = function () {
     switch (parseInt(loopstyle)) {
         case 0:
             myplay.anext()
@@ -313,82 +286,26 @@ var howNextPlay = function () {
             break
     }
 }
-//格式化时间
-var formatSeconds = function (value) {
-    var theTime = parseInt(value) // 秒
-    var theTime1 = 0 // 分
-    var theTime2 = 0 // 小时
-    if (theTime > 60) {
-        theTime1 = parseInt(theTime / 60)
-        theTime = parseInt(theTime % 60)
-        if (theTime1 > 60) {
-            theTime2 = parseInt(theTime1 / 60)
-            theTime1 = parseInt(theTime1 % 60)
-        }
-    }
-    var result = "" + parseInt(theTime)
-    if (theTime1 > 0) {
-        if (theTime < 10) {
-            result = "" + ((theTime1 < 10) ? "0" + theTime1 : theTime1) + ":0" + result
-        } else {
-            result = "" + ((theTime1 < 10) ? "0" + theTime1 : theTime1) + ":" + result
-        }
-    }
-    if (theTime2 > 0) {
-        result = "" + parseInt(theTime2) + ":" + result
-    }
-    if (result == "NaN") {
-        return "--:--"
-    } else {
-        return result
-    }
-}
 
-var songpush = function (adName, adAuthor, adPath, adpic) {
-    var sd = {
+//添加歌曲
+const songpush = function (adName, adPath) {
+    let sd = {
         "songid": songdata.length + 1,
         "songname": adName,
-        "songauthor": adAuthor,
         "like": "",
-        "songpath": adPath,
-        "songpic": adpic
+        "songpath": adPath
     }
     songdata.push(JSON.parse(JSON.stringify(sd)))
     myplay.listFill()
 }
 
-//添加歌曲
-var addMusics = function () {
-    var adName = w.$('#usongname').value;
-    var adAuthor = w.$('#usongauthor').value;
-    var adPath = w.$('#usonpath').value;
-    var adpic = w.$('#usongpicture').value;
-    if (adName.trim() == "" || adAuthor.trim() == "" || adPath.trim() == "") {
-        w.$('#upnotice').innerHTML = "请正确填写"
-        console.log(adName + "," + adAuthor + "," + adPath)
-    } else {
-        w.$('#upnotice').innerHTML = ""
-        songpush(adName, adAuthor, adPath, adpic)
-        w.$('#usongname').value = ""
-        w.$('#usongauthor').value = ""
-        w.$('#usongpicture').value = ""
-        w.$('#usonpath').value = ""
-        // w.$('#usongpci').innerHTML = ""
-        // w.$('#ulabelurl').innerHTML = ""
-    }
-}
 
 //添加歌曲
-var addMusicfloder = function () {
-    var adPaths = w.$('#usonpaths').value;
-    if (adPaths.trim() == "") {
-        w.$('#upnotices').innerHTML = "请正确填写"
-    } else {
-        w.$('#upnotices').innerHTML = ""
-    }
+const addMusics = function () {
+    // console.log("refresh")
 }
 
-let myplay = new audioPlay()
+const myplay = new audioPlay()
 
 window.onload = function () {
     w.addEvent(w.$('#songPrevious'), "click", function () {
@@ -412,11 +329,20 @@ window.onload = function () {
     w.addEvent(w.$('#closeSongList'), "click", function () {
         myplay.closeSongL()
     })
+    w.addEvent(w.$('#songVolume'), "click", function () {
+
+        let vo = 0.5;
+        if (w.$('#audioControl').volume == 0) {
+            w.$('#audioControl').volume = vo
+            w.$('#songVolume').style.color = "#555"
+        } else {
+            vo = w.$('#audioControl').volume
+            w.$('#audioControl').volume = 0
+            w.$('#songVolume').style.color = "#f00"
+        }
+    })
     w.addEvent(w.$('#songListShow'), "click", function () {
         myplay.closeSongL()
-    })
-    w.addEvent(w.$('#audioControl'), "canplay", function () {
-        myplay.gettime()
     })
     w.addEvent(w.$('#audioControl'), "ended", function () {
         myplay.setend()
@@ -432,40 +358,26 @@ window.onload = function () {
         myplay.aloop()
     })
     w.addEvent(w.$('#songListUl'), "click", function () {
-        var lis = document.getElementsByTagName("Li")
-        var target = event.target || event.srcElement
+        let lis = document.getElementsByTagName("Li")
+        let target = event.target || event.srcElement
         if (!!target && target.nodeName.toUpperCase() === 'LI') {
             console.log(target.value)
             myplay.ainit(target.value)
             myplay.apause()
         }
     })
-    w.addEvent(w.$('#maskwrap'), "click", function () {
-        w.$('#maskwrap').style.display = "none";
-        w.$('#addMusic').style.display = "none";
-        w.$('#addMusics').style.display = "none";
-    })
     w.addEvent(w.$('#addSongList'), "click", function () {
-        w.$('#maskwrap').style.display = "block";
-        w.$('#addMusic').style.display = "block";
+        addMusics()
     })
-    w.addEvent(w.$('#addSongLists'), "click", function () {
-        w.$('#maskwrap').style.display = "block";
-        w.$('#addMusics').style.display = "block";
-    })
-    w.addEvent(w.$('#songSubmit'), "click", function () {
-        addMusics();
-    })
-    w.addEvent(w.$('#songSubmits'), "click", function () {
-        addMusicfloder();
-    })
-    w.addEvent(w.$('#usongpicture'), "change", function () {
-        w.$('#usongpci').innerHTML = w.$('#usongpicture').value
-    })
-    w.addEvent(w.$('#usonpath'), "change", function () {
-        w.$('#ulabelurl').innerHTML = w.$('#usonpath').value
-    })
-    w.addEvent(w.$('#usonpaths'), "change", function () {
-        w.$('#ulabelurls').innerHTML = "多个文件"
+    w.addEvent(w.$('#inputAddSong'), "change", function () {
+        // console.log("change")
+        const files = w.$('#inputAddSong').files
+        for (let i = 0; i < files.length; i++) {
+            if ((files[i].type).indexOf("audio") != -1 && files[i].size > 8094) {
+                // console.log(files[i].name, URL.createObjectURL(files[i]))
+                songpush(files[i].name, URL.createObjectURL(files[i]))
+                myplay.listFill()
+            }
+        }
     })
 }

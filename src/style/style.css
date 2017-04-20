@@ -69,7 +69,8 @@ body {
 .song-list ul li {
     color: #777;
     font-size: .9rem;
-    line-height: 1.7rem
+    line-height: 1.7rem;
+
 }
 
 .song-list ul li:hover {
@@ -129,10 +130,17 @@ body {
     float: left
 }
 
-.song-volume:hover .volueml {
+.volume-wrap{
+    float: left
+}
+.volume-wrap:hover  .volueml {
     opacity: 1;
     width: 50px;
     transition: all 0.3s;
+}
+
+.song-info{
+    max-height: 75px;
 }
 
 .volueml {
@@ -143,7 +151,7 @@ body {
     width: 0px;
     height: 2px;
     background: #aaa;
-    transition: all 0.2s 0.5s;
+    transition: all 0.4s 0.6s;
 }
 
 .voluemlen {

@@ -17,19 +17,21 @@
                 </ul>
             </div>
             <span class="close-song-list" id="closeSongList">关闭列表</span>
-            <span class="caddSongList"><span class="close-song-list " id="addSongList">添加歌曲</span>
-            <span class="close-song-list" id="addSongLists">批量添加歌曲</span></span>
+            <label class="close-song-list " id="addSongList" for="inputAddSong">添加歌曲</label>
+            <input type="file" name="inputAddSong" id="inputAddSong" style="display:none;" accept="audio/mp3,audio/ogg" multiple>
         </div>
         <div class="wrap-play" id="wrapPlay">
             <div class="song-operating clear" id="songOperating">
                 <div class="song-info" id="song-info">
                     <p id="songName" class="song-name">未知</p>
-                    <p id="songAuthor" class="song-author">未知</p>
+                    <p id="songAuthor" class="song-author"></p>
                 </div>
                 <div class="play-opera clear" id="playOpera">
                     <div class="song-time-volume clear">
                         <div id="songTime" class="song-time">--:--</div>
-                        <div class="song-volume in-size iconfont icon-yinliang" id="songVolume">
+                        <div class="volume-wrap clear">
+                            <div class="song-volume in-size iconfont icon-yinliang" id="songVolume">
+                            </div>
                             <div class="volueml" id="voluemeL">
                                 <div class="voluemlen" id="voluemeLength"></div>
                             </div>
@@ -59,30 +61,11 @@
                 </div>
             </div>
             <div class="song-cover">
-                <img id="songCover" src="" alt="genji">
+                <img id="songCover" src="">
             </div>
         </div>
     </div>
     <audio src="" controls="controls" class="audio-control" id="audioControl"></audio>
-    <div class="maskwrap" id="maskwrap">
-    </div>
-    <div id="addMusic" class="addMusicWrap">
-        <h1>添加音乐</h1>
-        <p><span>歌名：</span><input type="text" name="usongname" id="usongname"></p>
-        <p><span>作者：</span><input type="text" name="usongauthor" id="usongauthor"></p>
-        <p><span>封面：</span><input type="text" name="usongpicture" id="usongpicture"></p>
-        <p><span>路径：</span><input type="text" name="usonpath" id="usonpath"></p>
-        <button id="songSubmit" class="songSubmit">提交</button>
-        <p id="upnotice" class="upnotice"></p>
-    </div>
-    <div id="addMusics" class="addMusicWrap">
-        <h1>批量添加音乐</h1>
-        <p><label class="pathText">路径：</label>
-            <label for="usonpaths" class="ulabel" id="ulabelurls"></label>
-            <input type="file" name="usonpaths" id="usonpaths" multiple></p>
-        <button id="songSubmits" class="songSubmit">提交</button>
-        <p id="upnotices" class="upnotice"></p>
-    </div>
 </body>
 
 </html>

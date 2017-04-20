@@ -85,7 +85,7 @@ export const w = {
             elementId.removeChild(elementId.lastChild)
         }
     },
-    
+
     /**
      * 获取或设置元素属性
      * 
@@ -108,13 +108,18 @@ export const w = {
      * @param {String} event
      * @param {String} func
      */
-    addEvent(elementId, event, func) {
-        if (elementId.addEventListener) {
-            elementId.addEventListener(event, func, false);
-        } else if (elementId.attachEvent) {
-            elementId.attachEvent('on' + event, func);
+    addEvent(elementId, event = click, func) {
+        if (elementId != null) {
+            if (elementId.addEventListener) {
+                elementId.addEventListener(event, func, false);
+            } else if (elementId.attachEvent) {
+                elementId.attachEvent('on' + event, func);
+            } else {
+                elementId['on' + event] = func;
+            }
         } else {
-            elementId['on' + event] = func;
+            console.log("elementId:null")
+            return false
         }
     },
     /**
@@ -124,29 +129,12 @@ export const w = {
      * @returns {String} timr or NaN
      */
     formatSeconds(value) {
-        var theTime = parseInt(value) // 秒
-        var theTime1 = 0 // 分
-        var theTime2 = 0 // 小时
-        if (theTime > 60) {
-            theTime1 = parseInt(theTime / 60)
-            theTime = parseInt(theTime % 60)
-            if (theTime1 > 60) {
-                theTime2 = parseInt(theTime1 / 60)
-                theTime1 = parseInt(theTime1 % 60)
-            }
-        }
-        var result = "" + parseInt(theTime)
-        if (theTime1 > 0) {
-            if (theTime < 10) {
-                result = "" + ((theTime1 < 10) ? "0" + theTime1 : theTime1) + ":0" + result
-            } else {
-                result = "" + ((theTime1 < 10) ? "0" + theTime1 : theTime1) + ":" + result
-            }
-        }
-        if (theTime2 > 0) {
-            result = "" + parseInt(theTime2) + ":" + result
-        }
-        if (result == "NaN") {
+        var minute = parseInt(value/60)
+        var second = parseInt(value-minute*60)
+        var result
+        second=(second>=10)?second:'0'+second
+        result=minute+":"+second
+        if (result == "NaN:NaN") {
             return "--:--"
         } else {
             return result
