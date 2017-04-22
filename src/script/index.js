@@ -109,19 +109,21 @@ class audioPlay {
         switch (sw) {
             case 0:
                 loopstyle = 1
-                w.$('#songCycle').style.color = "#f00"
+                w.replaceClass(w.$('#songCycle'), "icon-xunhuan", "icon-danquxunhuan")
                 break
             case 1:
                 loopstyle = 2
-                w.$('#songCycle').style.color = "rgb(10, 162, 0)"
+                w.replaceClass(w.$('#songCycle'), "icon-danquxunhuan", "icon-suiji")
                 break
             case 2:
                 loopstyle = 0
-                w.$('#songCycle').style.color = "#000"
+                w.replaceClass(w.$('#songCycle'), "icon-suiji", "icon-xunhuan")
                 break
             default:
                 loopstyle = 0
-                w.$('#songCycle').style.color = "#000"
+                w.removeClass(w.$('#songCycle'), "icon-suiji")
+                w.removeClass(w.$('#songCycle'), "icon-danquxunhuan")
+                w.addClass(w.$('#songCycle'), "icon-xunhuan")
                 break
         }
     }
@@ -129,11 +131,10 @@ class audioPlay {
         let mouseX = event.clientX,
             voluemeLWidth = w.$('#voluemeL').offsetWidth,
             voluemeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#voluemeL').offsetParent.offsetLeft + w.$('#voluemeL').offsetParent.offsetWidth + 15
-        console.log(mouseX, voluemeLWidth, voluemeLLeft)
+        // console.log(mouseX, voluemeLWidth, voluemeLLeft)
         w.$('#audioControl').volume = (mouseX - voluemeLLeft) / 50
         w.$('#voluemeLength').style.width = (mouseX - voluemeLLeft) / 50 * 100 + "%"
- w.$('#songVolume').style.color = "#555"
-    
+        w.$('#songVolume').style.color = "#555"
     }
     setRandom() {
         getrandom()
@@ -150,7 +151,7 @@ class audioPlay {
         let mouseX = event.clientX,
             playWidth = w.$('#playProgress').offsetWidth,
             playmeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#playProgress').offsetLeft
-        console.log(mouseX, playWidth, playmeLLeft)
+        // console.log(mouseX, playWidth, playmeLLeft)
         w.$('#audioControl').currentTime = (mouseX - playmeLLeft) / 450 * w.$('#audioControl').duration
         w.$('#progressLine').style.width = (mouseX - playmeLLeft) / 450 * 100 + "%"
     }
@@ -375,7 +376,7 @@ window.onload = function () {
         for (let i = 0; i < files.length; i++) {
             if ((files[i].type).indexOf("audio") != -1 && files[i].size > 8094) {
                 // console.log(files[i].name, URL.createObjectURL(files[i]))
-                songpush(files[i].name, URL.createObjectURL(files[i]))
+                songpush(files[i].name.substring(0, files[i].name.lastIndexOf(".")), URL.createObjectURL(files[i]))
                 myplay.listFill()
             }
         }
