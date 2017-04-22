@@ -5,6 +5,7 @@
  * w.$$('node')  获取多个的元素
  * w.hasClass(elementId, cName)  检查元素是否有指定class
  * w.addClass(elementId, cName)  添加class
+ * w.replaceClass(elementId, cName,nName)  替换class
  * w.removeClass(elementId, cName)   删除class
  * w.removaAllChildNodes(elementId)   删除所有子节点
  * w.addEvent(elementId, event, func)  添加事件
@@ -60,9 +61,20 @@ export const w = {
      * @param {Element} elementId
      */
     addClass(elementId, cName) {
-        if (!hasClass(elementId, cName)) {
+        if (!w.hasClass(elementId, cName)) {
             elementId.className += " " + cName;
         }
+    },
+    /**
+     * 元素替换class
+     * 
+     * @param {Element} elementId
+     * @param {String} cName
+     * @param {String} nName
+     */
+    replaceClass(elementId, cName, nName) {
+        w.removeClass(elementId, cName)
+        w.addClass(elementId, nName)
     },
     /**
      * 元素删除class
@@ -71,8 +83,8 @@ export const w = {
      * @param {Element} elementId
      */
     removeClass(elementId, cName) {
-        if (!hasClass(elementId, cName)) {
-            elementId.className = elementId.className.replace(new RegExp("(\\s|^)" + cName + "(\\s|$)"));
+        if (w.hasClass(elementId, cName)) {
+            elementId.className = elementId.className.replace(new RegExp('(^|\\b)' + cName.split(' ').join('|') + '(\\b|$)', 'gi'), '');
         }
     },
     /**
@@ -129,11 +141,11 @@ export const w = {
      * @returns {String} timr or NaN
      */
     formatSeconds(value) {
-        var minute = parseInt(value/60)
-        var second = parseInt(value-minute*60)
+        var minute = parseInt(value / 60)
+        var second = parseInt(value - minute * 60)
         var result
-        second=(second>=10)?second:'0'+second
-        result=minute+":"+second
+        second = (second >= 10) ? second : '0' + second
+        result = minute + ":" + second
         if (result == "NaN:NaN") {
             return "--:--"
         } else {
