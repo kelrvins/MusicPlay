@@ -130,7 +130,7 @@ class audioPlay {
     setVolume() {
         let mouseX = event.clientX,
             voluemeLWidth = w.$('#voluemeL').offsetWidth,
-            voluemeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#voluemeL').offsetParent.offsetLeft + w.$('#voluemeL').offsetParent.offsetWidth + 15
+            voluemeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#voluemeL').offsetParent.offsetLeft + w.$('#voluemeL').offsetParent.offsetWidth + 18
         // console.log(mouseX, voluemeLWidth, voluemeLLeft)
         w.$('#audioControl').volume = (mouseX - voluemeLLeft) / 50
         w.$('#voluemeLength').style.width = (mouseX - voluemeLLeft) / 50 * 100 + "%"
@@ -309,6 +309,7 @@ const addMusics = function () {
 const myplay = new audioPlay()
 
 window.onload = function () {
+    console.log("https://github.com/kelrvins/MusicPlay")
     w.addEvent(w.$('#songPrevious'), "click", function () {
         myplay.aprevious()
     })
