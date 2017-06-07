@@ -4,9 +4,9 @@ import {
 
 let songdata = [{
     "songid": 1,
-    "songname": "程璧 - 花房姑娘",
+    "songname": "Fine乐团 - 感性",
     "like": "",
-    "songpath": "./songdata/程璧 - 花房姑娘.mp3"
+    "songpath": "http://7xurqc.com1.z0.glb.clouddn.com/Fine%E4%B9%90%E5%9B%A2%20-%20%E6%84%9F%E6%80%A7.mp3"
 }]
 
 let currentPlay = 1,

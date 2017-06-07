@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>audio</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_znwzg6u2g31k0529.css">
+<link href="main.css" rel="stylesheet"></head>
+
+<body>
+    <div class="wrap clear" id="wrap">
+        <div id="wrapList" class="wrap-list">
+            <div class="song-list" id="songList">
+                <ul id="songListUl">
+                </ul>
+            </div>
+            <span class="close-song-list" id="closeSongList">关闭列表</span>
+            <label class="close-song-list " id="addSongList" for="inputAddSong">添加歌曲</label>
+            <input type="file" name="inputAddSong" id="inputAddSong" style="display:none;" accept="audio/mp3,audio/ogg" multiple>
+        </div>
+        <div class="wrap-play" id="wrapPlay">
+            <div class="song-operating clear" id="songOperating">
+                <div class="song-info" id="song-info">
+                    <p id="songName" class="song-name">未知</p>
+                    <p id="songAuthor" class="song-author"></p>
+                </div>
+                <div class="play-opera clear" id="playOpera">
+                    <div class="song-time-volume clear">
+                        <div id="songTime" class="song-time">--:--</div>
+                        <div class="volume-wrap clear">
+                            <div class="song-volume in-size iconfont icon-yinliang" id="songVolume">
+                            </div>
+                            <div class="volueml" id="voluemeL">
+                                <div class="voluemlen" id="voluemeLength"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="song-ly-dw-sh clear">
+                        <div class="song-lyrics in-size iconfont icon-yinleliebiao" id="songLyrics"></div>
+                        <div class="song-download in-size iconfont icon-xiazai" id="songDownload"></div>
+                        <div class="song-share in-size iconfont icon-share" id="songShare"></div>
+                    </div>
+                </div>
+                <div class="play-progress" id="playProgress">
+                    <div class="progress-line" id="progressLine"></div>
+                </div>
+                <div class="song-opera clear" id="songOpera">
+                    <div class="song-lo-rb clear">
+                        <div class="song-love in-Bsize iconfont icon-aixin1" id="songLove" alt="喜欢"></div>
+                        <div class="song-dislove in-Bsize iconfont icon-lajitong1-copy" id="songDisLove"></div>
+                    </div>
+                    <div class="song-li-cy-pr-pa-ne clear">
+                        <div class="song-list-show in-Bsize iconfont icon-icon-liebiao" id="songListShow"></div>
+                        <div class="song-cycle in-Bsize iconfont icon-xunhuan" id="songCycle"></div>
+                        <div class="song-previous in-Bsize iconfont icon-shangyishou" id="songPrevious"></div>
+                        <div class="song-pause in-Bsize iconfont icon-bofang" id="songPause"></div>
+                        <div class="song-next in-Bsize iconfont icon-xiayishou" id="songNext"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="song-cover">
+                <img id="songCover" src="xxxHTMLLINKxxx0.61691917820014840.2811257073990492xxx">
+            </div>
+        </div>
+    </div>
+    <audio src="" controls="controls" class="audio-control" id="audioControl"></audio>
+<script type="text/javascript" src="main.bundle.js"></script></body>
+
+</html>
