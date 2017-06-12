@@ -219,8 +219,7 @@ class audioPlay {
     setVolume() {
         let mouseX = event.clientX,
             voluemeLWidth = __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#voluemeL').offsetWidth,
-            voluemeLLeft = (document.body.clientWidth - __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#playProgress').offsetParent.offsetWidth) / 2 + __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#voluemeL').offsetParent.offsetLeft + __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#voluemeL').offsetParent.offsetWidth + 18
-        // console.log(mouseX, voluemeLWidth, voluemeLLeft)
+            voluemeLLeft =__WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#voluemeL').getBoundingClientRect().left
         __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#audioControl').volume = (mouseX - voluemeLLeft) / 50
         __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#voluemeLength').style.width = (mouseX - voluemeLLeft) / 50 * 100 + "%"
         __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#songVolume').style.color = "#555"
@@ -239,8 +238,7 @@ class audioPlay {
         // console.log("setPlayProgress")
         let mouseX = event.clientX,
             playWidth = __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#playProgress').offsetWidth,
-            playmeLLeft = (document.body.clientWidth - __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#playProgress').offsetParent.offsetWidth) / 2 + __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#playProgress').offsetLeft
-        // console.log(mouseX, playWidth, playmeLLeft)
+            playmeLLeft = __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#playProgress').getBoundingClientRect().left
         __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#audioControl').currentTime = (mouseX - playmeLLeft) / 450 * __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#audioControl').duration
         __WEBPACK_IMPORTED_MODULE_0__wtools__["a" /* w */].$('#progressLine').style.width = (mouseX - playmeLLeft) / 450 * 100 + "%"
     }

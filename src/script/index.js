@@ -130,8 +130,7 @@ class audioPlay {
     setVolume() {
         let mouseX = event.clientX,
             voluemeLWidth = w.$('#voluemeL').offsetWidth,
-            voluemeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#voluemeL').offsetParent.offsetLeft + w.$('#voluemeL').offsetParent.offsetWidth + 18
-        // console.log(mouseX, voluemeLWidth, voluemeLLeft)
+            voluemeLLeft =w.$('#voluemeL').getBoundingClientRect().left
         w.$('#audioControl').volume = (mouseX - voluemeLLeft) / 50
         w.$('#voluemeLength').style.width = (mouseX - voluemeLLeft) / 50 * 100 + "%"
         w.$('#songVolume').style.color = "#555"
@@ -150,8 +149,7 @@ class audioPlay {
         // console.log("setPlayProgress")
         let mouseX = event.clientX,
             playWidth = w.$('#playProgress').offsetWidth,
-            playmeLLeft = (document.body.clientWidth - w.$('#playProgress').offsetParent.offsetWidth) / 2 + w.$('#playProgress').offsetLeft
-        // console.log(mouseX, playWidth, playmeLLeft)
+            playmeLLeft = w.$('#playProgress').getBoundingClientRect().left
         w.$('#audioControl').currentTime = (mouseX - playmeLLeft) / 450 * w.$('#audioControl').duration
         w.$('#progressLine').style.width = (mouseX - playmeLLeft) / 450 * 100 + "%"
     }
